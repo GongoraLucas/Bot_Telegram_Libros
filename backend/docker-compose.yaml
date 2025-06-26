@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo_db
+    env_file:
+      - .env.docker
+    networks:
+      - app-network
+  
+  mongo_db:
+    image: "mongo"
+    container_name: "MongoDB"
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  mongo-data:
